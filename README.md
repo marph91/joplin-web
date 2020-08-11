@@ -19,13 +19,15 @@ Because it may happened we need to access to [JoplinApp](https://joplinapp.org) 
 ## Installation
 
 ```python
+export JW_BASE="${HOME}" # Set the directory where you would like to install
+cd "${JW_BASE}"
 python3 -m venv joplin-web
 cd joplin-web
 source bin/activate
 git clone https://github.com/foxmask/joplin-web
 cd joplin-web
 pip install -r requirements.txt
-cd ../joplin-vue
+cd joplin-vue
 npm install
 ```
 
@@ -66,6 +68,9 @@ we start the front and the back in 2 dedicated process
 * start the backend part of joplin-web app like this
 
 ```python
+export JW_BASE="${HOME}" # Must match value used at install time
+cd "${JW_BASE}/joplin-web/joplin-web/joplin_web"
+source "../../bin/activate"
 python app.py &
 Joplin Web - Starlette powered
 Started server process [10043]
@@ -90,7 +95,9 @@ npm run build
 * then start the application:
 
 ```python
-cd ../joplin_web
+export JW_BASE="${HOME}" # Must match value used at install time
+cd "${JW_BASE}/joplin-web/joplin-web/joplin_web"
+source "../../bin/activate"
 python app.py &
 Joplin Web - Starlette powered
 Started server process [11243]
