@@ -23,5 +23,5 @@ RUN curl -sL https://deb.nodesource.com/setup_14.x | bash - \
 
 VOLUME /data
 EXPOSE 8001
-COPY .env /app/joplin-web/joplin-web/joplin_web/
+COPY joplin_web/.env_docker /app/joplin-web/joplin-web/joplin_web/.env
 CMD ["/app/joplin-web/joplin-web/docker-start.sh"]
