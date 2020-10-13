@@ -33,7 +33,7 @@
       </div>
       <div class="col-sm-2">
         <b-btn size="sm" variant="secondary"><i class="fas fa-calendar"></i></b-btn>
-        <span v-if="todo_due"> {{ moment(todo_due).format('MM/DD/YY h:mm') }}</span>
+        <span v-if="todo_due"> {{ todo_due }}</span>
       </div>
       <div class="col-sm-7">
         <div class="form-group">
@@ -63,8 +63,8 @@
               <li v-else>URL n/a</li>
               <li>Date
                 <ul>
-                  <li v-if="created_time > 0">Created: {{ moment(created_time).format('lll') }}</li>
-                  <li v-if="updated_time > 0">Updated: {{ moment(updated_time).format('lll') }}</li>
+                  <li v-if="created_time > 0">Created: {{ created_time }}</li>
+                  <li v-if="updated_time > 0">Updated: {{ updated_time }}</li>
                 </ul>
               </li>
               <li>Geo location
@@ -76,9 +76,9 @@
               </li>
               <li>Tasks
                 <ul>
-                  <li v-if="todo_completed > 0">Todo Completed: {{ moment(todo_completed).format('lll') }}</li>
+                  <li v-if="todo_completed > 0">Todo Completed: {{ todo_completed }}</li>
                   <li v-else>Todo Competed: n/a</li>
-                  <li v-if="todo_due > 0">Todo Due: {{ moment(todo_due).format('lll') }}</li>
+                  <li v-if="todo_due > 0">Todo Due: {{ todo_due }}</li>
                   <li v-else>Todo Due: n/a</li>
                 </ul>
               </li>

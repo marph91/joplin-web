@@ -64,7 +64,7 @@
                   <a :href="href" @click="editNote(data.item)">{{ data.item.title }}</a>
                 </b-link>
                 <tag :parent_folder="Object.assign({}, data.item.tag)"/>
-                <div class="text-sm text-muted font-italic" style="font-size: 0.7rem">Created: {{ moment(data.item.created_time).format('llll') }} - Updated: {{ moment(data.item.updated_time).format('llll') }}</div>
+                <div class="text-sm text-muted font-italic" style="font-size: 0.7rem">Created: {{ data.item.created_time }} - Updated: {{ data.item.updated_time }}</div>
               </template>
             </b-table>
             <b-pagination
@@ -93,9 +93,9 @@
                   <a :href="href" @click="editNote(data.item)">{{ data.item.title }}</a>
                 </b-link>
                 <tag :parent_folder="Object.assign({}, data.item.tag)"/>
-                <div v-if="data.item.todo_completed > 0" class="text-sm text-muted font-italic" style="font-size: 0.7rem">Completed: {{ moment(data.item.completed).format('llll') }}</div>
-                <div v-if="data.item.todo_due > 0" class="text-sm text-muted font-italic" style="font-size: 0.7rem">Due: {{ moment(data.item.todo_due).format('llll') }}</div>
-                <div class="text-sm text-muted font-italic" style="font-size: 0.7rem">Created: {{ moment(data.item.created_time).format('llll') }} - Updated: {{ moment(data.item.updated_time).format('llll') }}</div>
+                <div v-if="data.item.todo_completed > 0" class="text-sm text-muted font-italic" style="font-size: 0.7rem">Completed: {{ data.item.completed }}</div>
+                <div v-if="data.item.todo_due > 0" class="text-sm text-muted font-italic" style="font-size: 0.7rem">Due: {{ data.item.todo_due }}</div>
+                <div class="text-sm text-muted font-italic" style="font-size: 0.7rem">Created: {{ data.item.created_time }} - Updated: {{ data.item.updated_time }}</div>
               </template>
             </b-table>
             <b-pagination
