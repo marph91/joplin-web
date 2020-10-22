@@ -1,0 +1,35 @@
+    <div class="accordion" id="accordionJoplinTag">
+      <div class="card">
+        <div class="card-header" id="headingJoplinTag">
+          <h2 class="mb-0">
+            <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseJoplinTag" aria-expanded="true" aria-controls="collapseJoplinTag">
+              <i class="fas fa-tags"></i> Tags
+            </button>
+          </h2>
+        </div>
+        <div id="collapseJoplinTag" class="collapse show" aria-labelledby="headingJoplinTag" data-parent="#accordionJoplinTag">
+          <div id="tags_tree"></div>
+        </div>
+      </div>
+    </div>
+{% block extra_js %}
+<script type="text/javascript">
+//<![CDATA[
+$(document).ready(function() {
+    $.ajax({url: '/tags',
+            type: 'get',
+            dataType: 'json',
+    }).done(function(data) {
+        $('#tags_tree').bstreeview({
+          data: data,
+          expandIcon: 'fa fa-angle-down fa-fw',
+          collapseIcon: 'fa fa-angle-right fa-fw',
+          indent: 1.25,
+          parentsMarginLeft: '1.25rem',
+          openNodeLinkOnNewTab: false
+        });
+    })
+  });
+//]]>
+</script>
+{% endblock %}

@@ -1,0 +1,50 @@
+{% load i18n %}
+    <form method="post" class="form-vertical"
+          action="{% if note_id %}{% url 'edit_note_and_tags' note_id %}{% else %}{% url 'create_note' %}{% endif %}">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        <div class="form-group">
+            <label for="id_title">{% trans 'Title' %}</label>
+            {{ form.title.errors }}
+            {{ form.title }}
+        </div>
+        <div class="form-group">
+            <label for="id_parent_id">{% trans 'Folders' %}</label>
+            {{ form.parent_id.errors }}
+            {{ form.parent_id }}
+        </div>
+        <div class="form-group">
+            <label for="id_tags">{% trans 'Tags' %}</label>
+            {{ form.tags.errors }}
+            {{ form.tags }}
+        </div>
+        <div class="form-group">
+            {{ form.text.errors }}
+            {{ form.text }}
+        </div>
+        {% if note_id %}
+        <input type="submit" class="btn btn-outline-primary" value="{% trans 'Submit' %}">
+        <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#deleteModal">{% trans 'Delete' %}</button>
+        <div class="modal fade" id="deleteModal">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">{% trans 'Deletion' %}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <p>{% trans 'Do you confirm the deletetion of that note ?' %} {{ note_title }}</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">{% trans 'No' %}</button>
+                <a href="{% url 'delete_note' note_id %}" type="submit" class="btn btn-outline-danger">{% trans 'Yes' %}</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% else %}
+        <input type="submit" class="btn btn-outline-primary" value="{% trans 'Submit' %}">
+        {% endif %}
+    </form>
