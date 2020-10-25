@@ -23,23 +23,14 @@ def get_folders(request):
     :return: json
     """
     res = joplin.get_folders()
-    data = nb_notes_by_folder(res.json())
+    json_data = sorted(res.json(), key=lambda k: k['title'])
+    data = nb_notes_by_folder(json_data)
     logger.debug(data)
     return JsonResponse(data, safe=False)
 
 
 def get_tags(request):
     res = joplin.get_tags()
-    data = nb_notes_by_tag(res.json())
-    data_tree = []
-    for line in data:
-        my_data = {'text': line['title'],
-                   'href': reverse('notes_tag', args=[line['id']])}
-        if 'children' in line:
-            # due to bstreeview, need to adapt data
-            # children = nodes
-            # title = text
-            my_data['nodes'] = line['children']
-        data_tree.append(my_data)
-    logger.debug(data_tree)
-    return JsonResponse(data_tree, safe=False)
+    json_data = sorted(res.json(), key=lambda k: k['title'])
+    data = nb_notes_by_tag(json_data)
+    return JsonResponse(data, safe=False)

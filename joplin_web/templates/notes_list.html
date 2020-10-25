@@ -1,23 +1,18 @@
-{% load joplin_web_extras %}
-    <table class="table table-hover">
-    {% for note in notes %}
-      <tr>
-        <td>
-            {% if folder_id %}
-          <a href="/notes/{{ note.id }}?folder_id={{ note.parent_id }}">{{ note.title }}</a>
-            {% elif tag_id %}
-            <a href="/notes/{{ note.id }}?tag_id={{ tag_id }}">{{ note.title }}</a>
-            {% else %}
-            <a href="/notes/{{ note.id }}">{{ note.title }}</a>
-            {% for tag in note.tag %}
-            <a href="/notes/tag/{{ tag.id }}" class="btn btn-outline-success" role="button">{{ tag.title }}</a>
-            {% endfor %}
-            {% endif %}
-          <div class="text-sm text-muted font-italic" style="font-size: 0.7rem">
-              Created: {{ note.created_time|date_to_timestamp|date:"SHORT_DATETIME_FORMAT" }}
-              Updated: {{ note.updated_time|date_to_timestamp|date:"SHORT_DATETIME_FORMAT" }}<br/>
-          </div>
-        </td>
-      </tr>
-    {% endfor %}
-    </table>
+{% for note in notes %}
+  <div class="card">
+    <div class="card-body">
+        {% if folder_id %}
+        <h5 class="card-title"><a href="/notes/{{ note.id }}?folder_id={{ note.parent_id }}">{{ note.title }}</a></h5>
+        {% elif tag_id %}
+        <h5 class="card-title"><a href="/notes/{{ note.id }}?tag_id={{ tag_id }}">{{ note.title }}</a></h5>
+        {% else %}
+        <h5 class="card-title"><a href="/notes/{{ note.id }}">{{ note.title }}</a></h5>
+        {% for tag in note.tag %}
+        <p class="card-text">
+            <small class="text-muted"><a href="/notes/tag/{{ tag.id }}" class="btn btn-outline-success" role="button">{{ tag.title }}</a></small>
+        </p>
+        {% endfor %}
+        {% endif %}
+    </div>
+  </div>
+{% endfor %}

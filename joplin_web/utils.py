@@ -57,8 +57,10 @@ def nb_notes_by_tag(tags):
         res_tags_notes = joplin.get_tags_notes(tag['id'])
         if len(res_tags_notes.json()):
             nb_notes = len(res_tags_notes.json())
-        item = tag
+        item = dict()
         item['nb_notes'] = nb_notes
+        item['text'] = f"{tag['title']} ({nb_notes})"
+        item['href'] = reverse('notes_tag', args=[tag['id']])
         data.append(item)
     logger.debug(data)
     return data
