@@ -4,9 +4,9 @@
 """
 from django import forms
 from django.conf import settings
-from joplin_api import JoplinApiSync
+from joppy.api import Api
 
-joplin = JoplinApiSync(token=settings.JOPLIN_WEBCLIPPER_TOKEN)
+joplin = Api(token=settings.JOPLIN_WEBCLIPPER_TOKEN)
 
 
 def get_children_folders(my_folders, folders):
@@ -20,7 +20,7 @@ def get_folders():
     """
 
     """
-    folders = joplin.get_folders().json()
+    folders = joplin.get_all_notebooks()
 
     my_folders = []
     for folder in folders:
@@ -35,7 +35,7 @@ def get_tags():
     """
 
     """
-    tags = joplin.get_tags().json()
+    tags = joplin.get_all_tags()
 
     my_tags = []
     for tag in tags:

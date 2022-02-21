@@ -10,9 +10,9 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 import os
-from joplin_api import JoplinApiSync
+from joppy.api import Api
 import environ
-import httpx
+import requests
 from pathlib import Path
 from rich import console
 console = console.Console()
@@ -189,9 +189,9 @@ LOGGING = {
 JOPLIN_WEBCLIPPER_TOKEN = env.str('JOPLIN_WEBCLIPPER_TOKEN', default='')
 
 # check if Joplin is started
-joplin = JoplinApiSync(token=JOPLIN_WEBCLIPPER_TOKEN)
+joplin = Api(token=JOPLIN_WEBCLIPPER_TOKEN)
 try:
     joplin.ping()
-except httpx.ConnectError:
+except requests.exceptions.ConnectionError:
     console.print("/!\ Joplin is not started, launch it first of all", style="red")
     exit(0)

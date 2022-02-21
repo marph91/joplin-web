@@ -4,14 +4,14 @@
 """
 from django.conf import settings
 from django.urls import reverse
-from joplin_api import JoplinApiSync
+from joppy.api import Api
 import logging
 from rich import console
 console = console.Console()
 
 logger = logging.getLogger("joplin_web.app")
 
-joplin = JoplinApiSync(token=settings.JOPLIN_WEBCLIPPER_TOKEN)
+joplin = Api(token=settings.JOPLIN_WEBCLIPPER_TOKEN)
 
 
 def tags_to_string(my_tags):
@@ -35,10 +35,10 @@ def tag_for_notes(data):
     :return: json
     """
     payload = []
-    for note in data.json():
-        tag = joplin.get_notes_tags(note['id'])
+    for note in data:
+        tag = joplin.get_all_tags(note_id=note['id'])
         new_note = note
-        new_note['tag'] = tag.json() if tag else ''
+        new_note['tag'] = tag if tag else ''
         payload.append(new_note)
     logger.debug(payload)
     return payload
@@ -54,9 +54,9 @@ def nb_notes_by_tag(tags):
     # get the number of notes of each tag, if any
     for tag in tags:
         nb_notes = 0
-        res_tags_notes = joplin.get_tags_notes(tag['id'])
-        if len(res_tags_notes.json()):
-            nb_notes = len(res_tags_notes.json())
+        res_tags_notes = joplin.get_all_notes(tag_id=tag['id'])
+        if len(res_tags_notes):
+            nb_notes = len(res_tags_notes)
         item = dict()
         item['nb_notes'] = nb_notes
         item['text'] = f"{tag['title']} ({nb_notes})"
@@ -76,9 +76,9 @@ def nb_notes_by_folder(folders):
     # get the number of notes of each folder, if any
     for folder in folders:
         nb_notes = 0
-        res_folders_notes = joplin.get_folders_notes(folder['id'])
-        if len(res_folders_notes.json()):
-            nb_notes = len(res_folders_notes.json())
+        res_folders_notes = joplin.get_all_notes(notebook_id=folder['id'])
+        if len(res_folders_notes):
+            nb_notes = len(res_folders_notes)
         # item = folder
         item = dict()
         item['nb_notes'] = nb_notes
